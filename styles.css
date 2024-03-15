@@ -1,0 +1,13 @@
+section {
+  
+}
+
+p {
+  width: 5px;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  text-wrap: nowrap;
+}

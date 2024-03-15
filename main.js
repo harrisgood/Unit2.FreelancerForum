@@ -25,24 +25,24 @@ How to do it:
 */
 
 const freelancers = [
-  { name: "Alice", price: 30, occupation: "writer"},
-  { name: "Bob", price: 50, occupation: "teacher"},
-  { name: "Carol", price: 70, occupation: "programmer"},
-  { name: "Dr. Slice", price: 25, occupation: "gardener" },
-  { name: "Dr. Pressure", price: 51, occupation: "programmer" },
-  { name: "Prof. Possibility", price: 43, occupation: "teacher" },
-  { name: "Prof. Prism", price: 81, occupation: "teacher" },
-  { name: "Dr. Impulse", price: 43, occupation: "teacher" },
-  { name: "Prof. Spark", price: 76, occupation: "programmer" },
-  { name: "Dr. Wire", price: 47, occupation: "teacher" },
-  { name: "Prof. Goose", price: 72, occupation: "driver" },
+  { name: `Alice`, price: 30, occupation: `writer`},
+  { name: `Bob`, price: 50, occupation: `teacher`},
+  { name: `Carol`, price: 70, occupation: `programmer`},
+  { name: `Dr. Slice`, price: 25, occupation: `gardener` },
+  { name: `Dr. Pressure`, price: 51, occupation: `programmer` },
+  { name: `Prof. Possibility`, price: 43, occupation: `teacher` },
+  { name: `Prof. Prism`, price: 81, occupation: `teacher` },
+  { name: `Dr. Impulse`, price: 43, occupation: `teacher` },
+  { name: `Prof. Spark`, price: 76, occupation: `programmer` },
+  { name: `Dr. Wire`, price: 47, occupation: `teacher` },
+  { name: `Prof. Goose`, price: 72, occupation: `driver` },
 ];
 
 const freelancerNames = []
 const freelancerPrices = []
 const freelancerOccupations = []
 
-// document.getElementById("freelancerName").innerHTML = freelancerNames
+// document.getElementById(`freelancerName`).innerHTML = freelancerNames
 
 
 // every time called, this function will add a freelancer to the display and update HTML to actually display it
@@ -62,28 +62,51 @@ const addFreelancer = () => {
     freelancerOccupations.push(nextFreelancer.occupation)
 
     // calculate average starting price
+    // loop through all prices in freelancerPrices
+    // add them all to a sum which we initialized as 0
+    // divide that sum by the total number of elements in freelancerPrices
     const averagePrice = freelancerPrices.reduce((sum, currentPrice) => sum + currentPrice, 0) / freelancerPrices.length
 
     // update HTML with display arrays
-    document.getElementById("freelancerName").innerHTML = freelancerNames
-    document.getElementById("freelancerOccupation").innerHTML = freelancerOccupations
-    document.getElementById("freelancerPrice").innerHTML = freelancerPrices
-    document.getElementById("averageStartingPrice").innerHTML = averagePrice
-
+    document.getElementById(`freelancerNames`).innerHTML = makePrettier(freelancerNames)
+    document.getElementById(`freelancerOccupations`).innerHTML = makePrettier(freelancerOccupations)
+    document.getElementById(`freelancerPrices`).innerHTML = makePrettier(freelancerPrices)
+    document.getElementById(`averageStartingPrice`).innerHTML = averagePrice
   }
 }
 
 // function that will add freelancers every few seconds automatically
 const runInBackground = () => {
+  // every 2 seconds run addFreelancer
   setInterval(addFreelancer, 2000)
 }
 
-const calculateAverageStartingPrice = (arrayOfPrices) => {
-  freelancerPrices.reduce((sum, currentPrice) => sum + currentPrice, 0) / freelancerPrices.length
+const capitalizeFirstLetter = (string) => {
+  // grab only first character in string
+  // make it uppercase
+  // add on rest of word (slice)
+   return string.charAt(0).toUpperCase() + string.slice(1) 
 }
 
-// run twice to add the two users that the 'site visitor' from assignment story saw
+// function to remove commas, pretties up our data so it displays better in html
+const makePrettier = (array) => {
+ 
+  // check type of elements in array
+  if(typeof array[0] === `string`){
+
+    // if its a string, use helper function to capitalize first letter
+    // then copy our array elements into one string with no commas, each separated by a space
+    return array.map(capitalizeFirstLetter).join(` `)
+  } else {
+
+    // if not strings just join
+    return array.join(` `)
+  }
+}
+
+// run addFreelancer twice to add the two users that the 'site visitor' from the assignment story saw
 addFreelancer()
 addFreelancer()
 
+// start our setInterval so that our site continues to add freelancers over time
 runInBackground()
