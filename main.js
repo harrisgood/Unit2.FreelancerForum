@@ -112,7 +112,7 @@ const addFreelancer = () => {
     const averagePrice = freelancerPrices.reduce((sum, currentPrice) => sum + currentPrice, 0) / freelancerPrices.length;
     
     // update average price html (and remove decimals)
-    document.querySelector(`#averageStartingPrice`).innerHTML = Math.floor(averagePrice);
+    document.querySelector(`#averageStartingPrice`).innerHTML = `$${Math.floor(averagePrice)}`;
   }
 }
 
