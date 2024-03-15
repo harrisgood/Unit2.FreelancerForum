@@ -1,37 +1,40 @@
 <html>
   <head>
     <script defer src="./main.js"></script>
-    <title>Freelancer Forum</title>
+    <link rel="stylesheet" href="./styles.css"/>
+    <title>Ultimate Freelancer Forum</title>
   </head>
   <body>
     <h1>Ultimate Freelancer Forum</h1>
+    
     <!-- contain freelancer list -->
+    <h2>Freelancers Available</h2>
     <section>
-      <h2>Freelancers Available</h2>
-      <!-- 
+      <div>
+        <h3>Name</h3>
+         <!--freelancer name  -->
+        <ul class="flexColumn" id="freelancerNames"></ul>
+      </div>
 
-        TODO:
-        bring the freelancer names all onto one line so you can actually read the data
-        maayyybe try to make each flancer its own div
-
-       -->
-      <h3>Name:</h3>
-       <!--freelancer name  -->
-      <ul class="flexColumn" id="freelancerNames"></ul>
-
-      <h3>Occupation:</h3>
-      <!--freelancer occupation  -->
-      <ul id="freelancerOccupations"></ul>
-
-      <h3>Starting Price:</h3>
-      <!--freelancer starting price  -->
-      <ul id="freelancerPrices"></ul>
+      <div>
+        <h3>Occupation</h3>
+        <!--freelancer occupation  -->
+        <ul id="freelancerOccupations"></ul>
+      </div>
+      
+      <div>
+        <h3>Starting Price</h3>
+        <!--freelancer starting price  -->
+        <ul id="freelancerPrices"></ul>
+      </div>
     </section>
 
     <!-- active average of all starting prices -->
     <section>
-      <h3>Average Starting Price</h3>
-      <p id="averageStartingPrice"></p>
+      <div>
+        <h3>Average Starting Price</h3>
+        <p id="averageStartingPrice"></p>
+      </div>
     </section>
   </body>
 </html>

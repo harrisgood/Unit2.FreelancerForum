@@ -1,4 +1,6 @@
 /*
+
+The prompt:
   A visitor enters the website and finds a list of available freelancers. Each freelancer has a name, an occupation, and a starting price for their services. They observe on the list Alice, the writer with a starting price of $30, and Bob, who is a teacher, has a starting price of $50.
 
   The visitor also finds a message that displays the average starting price of all the freelancers. In this example, the average starting price is $40.
@@ -6,6 +8,8 @@
   A few seconds later, a new listing appears for a freelancer named Carol, who is a programmer and has a starting price of $70. The average starting price is updated to $50.
 
   New freelancers continue to appear every few seconds, and the average starting price is updated accordingly
+
+
 
 The site:
   -user sees list of available freelancers
@@ -18,9 +22,10 @@ The site:
       -adjusts average starting price
 
 How to do it:
-  -get document model from js to display neatly organized info in sections/divs in html
-  -use setInterval() to update what info is displayed
-  -have a function total up starting prices and divide by number
+  -create up html tags
+    -create function(s) to push data to them when necessary
+  -use setInterval() to run these functions
+  -have a function total up starting prices and divide by number of prices
 
 */
 
@@ -41,20 +46,18 @@ const freelancers = [
 // variable to store displayed prices so we can easily total them later
 const freelancerPrices = []
 
-
-// let freelancersDisplayed = 0
-
 // helper function to add content directly to list elements of an input id
 const addListItem = (content, listId) => {
-  //create const for list we are adding to
+  // create const for list we are adding to so we can easily modify it
   const listToAppend = document.getElementById(listId)
   
-  // create a new list item element
+  // create a blank new list item element
   let newListItem = document.createElement(`li`)
+  
   // update new list item's data
   newListItem.innerText = content
 
-  // add new list item text element to child of input id
+  // add new list item text element as a child of input id
   listToAppend.appendChild(newListItem)
 }
 
@@ -88,7 +91,7 @@ const addFreelancer = () => {
     freelancerPrices.push(nextFreelancer.price)
 
 
-    // calculate average starting price
+    // calculate average starting price now that we have changed it
     // loop through all prices in freelancerPrices
     // add them all to a sum which we initialized as 0
     // divide that sum by the total number of elements in freelancerPrices (cant use freelancersDisplayed because we just updated it)

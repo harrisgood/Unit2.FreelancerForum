@@ -1,10 +1,21 @@
-ul {
-  list-style-type: none;
+body {
+  background-color: hotpink;
 }
 
-s
-.flexColumn {
+ul {
+  background-color: aqua;
+  list-style-type: none;
   display: flex;
   flex-direction: column;
   text-wrap: nowrap;
+}
+
+p {
+  font-size: larger;
+  background-color: aqua;
+  padding: 10px;
+}
+
+section {
+  display: flex;
 }
