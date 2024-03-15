@@ -49,7 +49,7 @@ const freelancerPrices = []
 // helper function to add content directly to list elements of an input id
 const addListItem = (content, listId) => {
   // create const for list we are adding to so we can easily modify it
-  const listToAppend = document.getElementById(listId)
+  const listToAppend = document.querySelector(`#${listId}`)
   
   // create a blank new list item element
   let newListItem = document.createElement(`li`)
@@ -97,8 +97,8 @@ const addFreelancer = () => {
     // divide that sum by the total number of elements in freelancerPrices (cant use freelancersDisplayed because we just updated it)
     const averagePrice = freelancerPrices.reduce((sum, currentPrice) => sum + currentPrice, 0) / freelancerPrices.length
 
-    // update average price html
-    document.getElementById(`averageStartingPrice`).innerHTML = averagePrice
+    // update average price html (and remove decimals)
+    document.querySelector(`#averageStartingPrice`).innerHTML = Math.floor(averagePrice)
   }
 }
 
