@@ -1,16 +1,4 @@
 /*
-
-The prompt:
-  A visitor enters the website and finds a list of available freelancers. Each freelancer has a name, an occupation, and a starting price for their services. They observe on the list Alice, the writer with a starting price of $30, and Bob, who is a teacher, has a starting price of $50.
-
-  The visitor also finds a message that displays the average starting price of all the freelancers. In this example, the average starting price is $40.
-
-  A few seconds later, a new listing appears for a freelancer named Carol, who is a programmer and has a starting price of $70. The average starting price is updated to $50.
-
-  New freelancers continue to appear every few seconds, and the average starting price is updated accordingly
-
-
-
 The site:
   -user sees list of available freelancers
     -name
@@ -22,8 +10,14 @@ The site:
       -adjusts average starting price
 
 How to do it:
-  -create up html tags
+  -create html tags
     -create function(s) to push data to them when necessary
+      -querySelectors
+  -generate random freelancer
+    -create blank object
+    -use getRandom to pick element, grab that element from array of possible choices
+    -assign these choices as values to name/occupation/price keys
+    -push new freelancer to freelancers array
   -use setInterval() to run these functions
   -have a function total up starting prices and divide by number of prices
 
@@ -33,15 +27,12 @@ const freelancers = [
   { name: `Alice`, price: 30, occupation: `writer`},
   { name: `Bob`, price: 50, occupation: `teacher`},
   { name: `Carol`, price: 70, occupation: `programmer`},
-  { name: `Dr. Slice`, price: 25, occupation: `gardener` },
-  { name: `Dr. Pressure`, price: 51, occupation: `programmer` },
-  { name: `Prof. Possibility`, price: 43, occupation: `teacher` },
-  { name: `Prof. Prism`, price: 81, occupation: `teacher` },
-  { name: `Dr. Impulse`, price: 43, occupation: `teacher` },
-  { name: `Prof. Spark`, price: 76, occupation: `programmer` },
-  { name: `Dr. Wire`, price: 47, occupation: `teacher` },
-  { name: `Prof. Goose`, price: 72, occupation: `driver` },
 ];
+
+// some lists of names/occupations/prices we can pick from to "randomly" generate a new freelancer
+const randomNames = [`alex`, `rachel`, `sarah`, `juan`, `emily`, `tyler`, `maria`, `grace`, `patrick`, `duckworth`]
+const randomOccupations = [`writer`, `bookkeeper`, `trainer`, `plumber`, `carpenter`, `wizard`, `pilot`, `chef`, `photographer`, `cleaner`]
+const randomPrices = [22, 25, 32, 36, 41, 45, 50, 66, 70, 76]
 
 // variable to store displayed prices so we can easily total them later
 const freelancerPrices = []
@@ -70,6 +61,28 @@ const capitalizeFirstLetter = (string) => {
    return string.charAt(0).toUpperCase() + string.slice(1) 
 }
 
+// helper function to grab a random number from 0 to 10 which we can use to select an element
+// 10 because i put 10 elements in the 'random' arrays
+const getRandomElement = () =>{
+  return Math.floor(Math.random()*10)
+}
+
+// when called will create and return a new object representing a freelancer with a name, occupation and starting price
+const generateFreelancer = () => {
+  // create a blank new object we can assign keys/values to
+  const blankObject = {}
+  const mysteryFreelancer = Object.create(blankObject)
+
+  // grab a number 0-10 as the element to use for our attribute data
+  // done 3 times to keep freelancers more unique
+  mysteryFreelancer.name = randomNames[getRandomElement()]
+  mysteryFreelancer.occupation = randomOccupations[getRandomElement()]
+  mysteryFreelancer.price = randomPrices[getRandomElement()]
+
+  return mysteryFreelancer
+}
+
+
 // every time called, this function will add a freelancer to the display and update HTML to actually display it
 const addFreelancer = () => {
   // we need to know how many are being displayed so we know who to display next (0 by default)
@@ -83,7 +96,8 @@ const addFreelancer = () => {
 
     // use that variable to grab the name, price, and occupation
     // push these data to their respective unordered lists
-    addListItem(nextFreelancer.name, `freelancerNames`)
+    console.log(nextFreelancer)
+    addListItem(capitalizeFirstLetter(nextFreelancer.name), `freelancerNames`)
     addListItem(capitalizeFirstLetter(nextFreelancer.occupation), `freelancerOccupations`)
     addListItem(nextFreelancer.price, `freelancerPrices`)
 
@@ -99,6 +113,7 @@ const addFreelancer = () => {
 
     // update average price html (and remove decimals)
     document.querySelector(`#averageStartingPrice`).innerHTML = Math.floor(averagePrice)
+    freelancers.push(generateFreelancer())
   }
 }
 
