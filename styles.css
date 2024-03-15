@@ -1,11 +1,8 @@
-section {
-  
+ul {
+  list-style-type: none;
 }
 
-p {
-  width: 5px;
-}
-
+s
 .flexColumn {
   display: flex;
   flex-direction: column;

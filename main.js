@@ -38,70 +38,71 @@ const freelancers = [
   { name: `Prof. Goose`, price: 72, occupation: `driver` },
 ];
 
-const freelancerNames = []
+// variable to store displayed prices so we can easily total them later
 const freelancerPrices = []
-const freelancerOccupations = []
 
-// document.getElementById(`freelancerName`).innerHTML = freelancerNames
 
+// let freelancersDisplayed = 0
+
+// helper function to add content directly to list elements of an input id
+const addListItem = (content, listId) => {
+  //create const for list we are adding to
+  const listToAppend = document.getElementById(listId)
+  
+  // create a new list item element
+  let newListItem = document.createElement(`li`)
+  // update new list item's data
+  newListItem.innerText = content
+
+  // add new list item text element to child of input id
+  listToAppend.appendChild(newListItem)
+}
+
+
+// helper function to pretty up some data
+const capitalizeFirstLetter = (string) => {
+  // grab only first character in string
+  // make it uppercase
+  // add on rest of string starting at second character
+   return string.charAt(0).toUpperCase() + string.slice(1) 
+}
 
 // every time called, this function will add a freelancer to the display and update HTML to actually display it
 const addFreelancer = () => {
-  // we need to know how many are out there so we know who to grab
-  const numberListedAlready = freelancerNames.length
+  // we need to know how many are being displayed so we know who to display next (0 by default)
+  const freelancersDisplayed = freelancerPrices.length
 
   // make sure we actually have a freelancer to add
-  if(numberListedAlready < freelancers.length){
-    // grab them now to make things easier
-    const nextFreelancer = freelancers[numberListedAlready]
+  if(freelancersDisplayed < freelancers.length){
+    
+    // the next freelancer we want is at the index equal to the number of flancers displayed
+    const nextFreelancer = freelancers[freelancersDisplayed]
 
     // use that variable to grab the name, price, and occupation
-    // push these data to their respective display arrays
-    freelancerNames.push(nextFreelancer.name)
+    // push these data to their respective unordered lists
+    addListItem(nextFreelancer.name, `freelancerNames`)
+    addListItem(capitalizeFirstLetter(nextFreelancer.occupation), `freelancerOccupations`)
+    addListItem(nextFreelancer.price, `freelancerPrices`)
+
+    // need to keep track of all prices for total
     freelancerPrices.push(nextFreelancer.price)
-    freelancerOccupations.push(nextFreelancer.occupation)
+
 
     // calculate average starting price
     // loop through all prices in freelancerPrices
     // add them all to a sum which we initialized as 0
-    // divide that sum by the total number of elements in freelancerPrices
+    // divide that sum by the total number of elements in freelancerPrices (cant use freelancersDisplayed because we just updated it)
     const averagePrice = freelancerPrices.reduce((sum, currentPrice) => sum + currentPrice, 0) / freelancerPrices.length
 
-    // update HTML with display arrays
-    document.getElementById(`freelancerNames`).innerHTML = makePrettier(freelancerNames)
-    document.getElementById(`freelancerOccupations`).innerHTML = makePrettier(freelancerOccupations)
-    document.getElementById(`freelancerPrices`).innerHTML = makePrettier(freelancerPrices)
+    // update average price html
     document.getElementById(`averageStartingPrice`).innerHTML = averagePrice
   }
 }
 
 // function that will add freelancers every few seconds automatically
 const runInBackground = () => {
-  // every 2 seconds run addFreelancer
-  setInterval(addFreelancer, 2000)
-}
-
-const capitalizeFirstLetter = (string) => {
-  // grab only first character in string
-  // make it uppercase
-  // add on rest of word (slice)
-   return string.charAt(0).toUpperCase() + string.slice(1) 
-}
-
-// function to remove commas, pretties up our data so it displays better in html
-const makePrettier = (array) => {
- 
-  // check type of elements in array
-  if(typeof array[0] === `string`){
-
-    // if its a string, use helper function to capitalize first letter
-    // then copy our array elements into one string with no commas, each separated by a space
-    return array.map(capitalizeFirstLetter).join(` `)
-  } else {
-
-    // if not strings just join
-    return array.join(` `)
-  }
+  // every 2.6 seconds run addFreelancer
+  setInterval(addFreelancer, 2600)
 }
 
 // run addFreelancer twice to add the two users that the 'site visitor' from the assignment story saw
